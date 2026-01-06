@@ -9,21 +9,41 @@
 <body>
     <div class="main-frame">
         <div class="info-bar">
-            <div class="weigth-left">Left Weigth: 0kg</div>
-            <div class="weigth-next">Next Weigth: 0kg</div>
-            <div class="weigth-right">Right Weigth: 0kg</div>
-            <div class="plank-angle-info">Tilt Angle: 0deg</div>
+            <div class="info-box">
+                <div class="weight-left">
+                    <p>Left weight: </p>
+                    <span>0 kg</span>
+                </div>
+            </div>
+            <div class="info-box">
+                <div class="weight-next">
+                    <p>Next weight: </p>
+                    <span>0 kg</span>
+                </div>
+            </div>
+            <div class="info-box">
+                <div class="weight-right">
+                    <p>Right weight: </p>
+                    <span>0 kg</span>
+                </div>
+            </div>
+            <div class="info-box">
+                <div class="plank-angle-info">
+                    <p>Tilt Angle: </p>
+                    <span>0°</span>
+                </div>
+            </div>
         </div>
         <div class="game-frame">
             <div class="ball-frame"
-                onmouseenter=createBall(event);
+                onmouseenter=createBall(event)
                 onmouseleave=deleteBall(event)
                 onclick=dropBall(event)
             ></div>
             <div class="plank"></div>
             <span class="stabilizer"></span>
         </div>
-        <button class="button-reset" onclick="resetGame()">RESET</button>
+        <button class="button-reset" onclick="resetGame()">Clear Board</button>
     </div>
     <script src="index.js"></script>
 </body>

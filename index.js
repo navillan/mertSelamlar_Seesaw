@@ -1,16 +1,31 @@
-const leftWeigth = document.querySelector(".weigth-left");
-const rightWeigth = document.querySelector(".weigth-right");
-const nextWeigth = document.querySelector(".weigth-next");
-const plankAngleInfo = document.querySelector(".plank-angle-info");
+const leftWeight = document.querySelector(".weight-left > span");
+const rightWeight = document.querySelector(".weight-right > span");
+const nextWeight = document.querySelector(".weight-next > span");
+const plankAngleInfo = document.querySelector(".plank-angle-info > span");
 const ballFrame = document.querySelector(".ball-frame");
 const plank = document.querySelector(".plank");
 const resetButton = document.querySelector(".button-reset")
 
-let tiltAngle = 0;
-let leftWeigthValue = 0;
-let rightWeigthValue = 0;
+const colors = {
+  "1":"red",
+  "2":"green",
+  "3":"yellow",
+  "4":"blue",
+  "5":"orange",
+  "6":"purple",
+  "7":"brown",
+  "8":"olive",
+  "9":"violet",
+  "10":"black"
+}
+let leftWeightValue = 0;
+let rightWeightValue = 0;
+let leftTorqueValue = 0;
+let rightTorqueValue = 0;
 
-let nextBallWeigth = Math.round(Math.random() * 9) + 1;
+let tiltAngle = 0;
+
+let nextBallWeight = Math.round(Math.random() * 9) + 1;
 
 let ball = null;
 
@@ -23,17 +38,18 @@ ballFrame.addEventListener("pointermove", (event) => {
     event.clientY <= box.bottom
   ) {
     if(ball) {
-      const ballSize = nextBallWeigth * 7.5;
+      const ballSize = nextBallWeight * 7.5;
       ball.style.left = (event.clientX - box.left - ballSize / 2) + "px";
       ball.style.top = (event.clientY - box.top - ballSize / 2) + "px";
+      document.querySelector(".location-value").textContent = `x: ${(event.clientX - box.left).toFixed()}px`
     }
   }
 });
 
 function createBall(event){
-  const currentBallWeigth = nextBallWeigth;
+  const currentBallWeight = nextBallWeight;
   const box = ballFrame.getBoundingClientRect();
-  const ballSize = nextBallWeigth * 7.5;
+  const ballSize = 15 + (nextBallWeight * 7.5);
 
   ball = document.createElement('div');
   ball.classList.add('ball');
@@ -42,11 +58,14 @@ function createBall(event){
   ball.style.top = (event.clientY - box.top - ballSize / 2) + "px";
   ball.style.width = ballSize + "px";
   ball.style.height = ballSize + "px";
-  ball.style.fontSize = (currentBallWeigth * 3) + "px";
-  ball.textContent = currentBallWeigth + "kg";
-
+  ball.style.fontSize = (8 + (currentBallWeight * 3)) + "px";
+  ball.textContent = currentBallWeight + "kg";
+  ball.style.backgroundColor = colors[Math.floor(currentBallWeight)];
+  const location = document.createElement('div')
+  location.classList.add('location-value')
   const indicator = document.createElement('span');
   indicator.classList.add('indicator');
+  indicator.append(location)
   ball.append(indicator);
   ballFrame.append(ball);
   
@@ -60,8 +79,17 @@ function deleteBall(){
 
 function dropBall(event){
   const plankBox = plank.getBoundingClientRect();
-  const currentBallWeigth = nextBallWeigth;
-  const ballSize = nextBallWeigth * 7.5;
+  const currentBallWeight = nextBallWeight;
+  const ballSize = 15 + (nextBallWeight * 7.5);
+  let realX = event.clientX - plankBox.left;
+  let torque = (realX - (plankBox.width / 2)) * currentBallWeight;
+  if(torque < 0){
+    leftTorqueValue += Math.abs(torque / 5);
+    leftWeightValue += currentBallWeight;
+  } else {
+    rightTorqueValue += Math.abs(torque / 5);
+    rightWeightValue += currentBallWeight;
+  }
 
   const droppedBall = document.createElement('div');
   droppedBall.classList.add('ball');
@@ -70,27 +98,22 @@ function dropBall(event){
   droppedBall.style.top = (event.clientY - plankBox.top - ballSize / 2) + "px";
   droppedBall.style.width = ballSize + "px";
   droppedBall.style.height = ballSize + "px";
-  droppedBall.style.fontSize = (currentBallWeigth * 3) + "px";
-  droppedBall.textContent = currentBallWeigth + "kg";
+  droppedBall.style.transition = "top 0.8s ease-in";
+  droppedBall.style.fontSize = (8 + (currentBallWeight * 3)) + "px";
+  droppedBall.textContent = currentBallWeight + "kg";
+  droppedBall.style.backgroundColor = colors[Math.floor(currentBallWeight)];
   plank.append(droppedBall);
-  nextBallWeigth = Math.round(Math.random() * 9) + 1;
-  nextWeigth.textContent = "Next: " + nextBallWeigth + "kg";
+  nextBallWeight = Math.round(Math.random() * 9) + 1;
+  nextWeight.textContent = `${nextBallWeight} kg`;
 
   setTimeout(()=>{
-    droppedBall.style.transition = "top 0.6s ease-in";
     droppedBall.style.top = (-ballSize) + "px";
-  }, 10);
+  }, 50);
 
   setTimeout(()=>{
-    if(event.clientX < plankBox.left + (plankBox.width / 2)) {
-      leftWeigthValue = leftWeigthValue + currentBallWeigth
-      tiltAngle = tiltAngle - leftWeigthValue
-    } else {
-      rightWeigthValue = rightWeigthValue + currentBallWeigth
-      tiltAngle = tiltAngle + rightWeigthValue
-    };
-    leftWeigth.textContent = `Left Weigth: ${leftWeigthValue}kg`;
-    rightWeigth.textContent = `Right Weigth: ${rightWeigthValue}kg`;
+    tiltAngle = Math.max(-30, Math.min(30, (rightTorqueValue - leftTorqueValue) / 10))
+    leftWeight.textContent = `${leftWeightValue} kg`;
+    rightWeight.textContent = `${rightWeightValue} kg`;
     
   }, 300);
 
@@ -102,34 +125,36 @@ function dropBall(event){
 };
 
 function tiltPlank() {
-  if (tiltAngle >= 30) {
+  
+  if(tiltAngle >= 30) {
     plank.style.transform = "rotate(30deg)";
     plank.style.left = "10%";
-    plankAngleInfo.textContent = "30deg";
+    plankAngleInfo.textContent = "30°";
 
-  } else if (tiltAngle <= -30) {
+  } else if(tiltAngle <= -30) {
     plank.style.transform = "rotate(-30deg)";
     plank.style.left = "10%";
-    plankAngleInfo.textContent = "-30deg";
+    plankAngleInfo.textContent = "-30°";
 
   } else {
     plank.style.transform = `rotate(${tiltAngle}deg)`;
     plank.style.left = "10%";
-    plankAngleInfo.textContent =
-      `Tilt Angle: ${tiltAngle}deg`;
+    plankAngleInfo.textContent = `${tiltAngle.toFixed(1)}°`;
   }
 };
 
 function resetGame() {
-  leftWeigthValue = 0;
-  rightWeigthValue = 0;
+  leftWeightValue = 0;
+  rightWeightValue = 0;
+  leftTorqueValue = 0;
+  rightTorqueValue = 0;
   tiltAngle = 0;
-  plankAngleInfo.textContent = `Tilt Angle: ${tiltAngle}deg`
-  plank.style.transform = "rotate(0deg)";
-  nextBallWeigth = Math.round(Math.random() * 9) + 1;
-  nextWeigth.textContent = "Next: " + nextBallWeigth + "kg";
-  leftWeigth.textContent = `Left Weigth: ${leftWeigthValue}kg`;
-  rightWeigth.textContent = `Right Weigth: ${rightWeigthValue}kg`;
+  plankAngleInfo.textContent = `${tiltAngle}°`
+  plank.style.transform = "unset";
+  nextBallWeight = Math.round(Math.random() * 9) + 1;
+  nextWeight.textContent = `${nextBallWeight} kg`;
+  leftWeight.textContent = `${leftWeightValue} kg`;
+  rightWeight.textContent = `${rightWeightValue} kg`;
   const allBalls = plank.querySelectorAll(".ball");
   allBalls.forEach(ball => ball.remove());
 }
