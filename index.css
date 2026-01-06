@@ -84,7 +84,7 @@ p, span {
   bottom: 160px;
   left: 50%;
   transform: translateX(-50%);
-  transition: all 1s ease;
+  transition: all 0.3s ease;
   border-radius: 10px;
 }
 .stabilizer {

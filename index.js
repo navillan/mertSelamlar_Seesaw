@@ -98,7 +98,7 @@ function dropBall(event){
   droppedBall.style.top = (event.clientY - plankBox.top - ballSize / 2) + "px";
   droppedBall.style.width = ballSize + "px";
   droppedBall.style.height = ballSize + "px";
-  droppedBall.style.transition = "top 0.8s ease-in";
+  droppedBall.style.transition = "top 0.3s ease-in";
   droppedBall.style.fontSize = (8 + (currentBallWeight * 3)) + "px";
   droppedBall.textContent = currentBallWeight + "kg";
   droppedBall.style.backgroundColor = colors[Math.floor(currentBallWeight)];
@@ -119,7 +119,7 @@ function dropBall(event){
 
   setTimeout(()=>{
     tiltPlank();
-  }, 700);
+  }, 350);
 
   ballFrame.querySelectorAll('.ball').forEach(ball => ball.remove());
 };
