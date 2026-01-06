@@ -12,6 +12,10 @@
   gap: 50px;
   margin-bottom: 50px;
 }
+.weigth-left, .weigth-next, .weigth-right, .plank-angle-info {
+  font-size: 24px;
+  font-weight: bold;
+}
 
 .game-frame {
   height: 400px;
@@ -43,8 +47,8 @@
 }
 
 .button-reset {
-  height: 50px;
-  width: 100px;
+  height: 40px;
+  width: 80px;
   background-color: orange;
   border: none;
   border-radius: 10px;
