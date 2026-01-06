@@ -19,11 +19,23 @@
 
 .game-frame {
   height: 400px;
-  width: 600px;
+  width: 500px;
   background-color: grey;
-  display: flex;
   position: relative;
+  overflow: hidden;
+  transition: all 1s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin: auto;
+}
+.ball-frame {
+  width: 400px;
+  height: 250px;
+  background-color: paleturquoise;
+  position: relative;
+  bottom: 70px;
 }
 .plank {
   height: 20px;
