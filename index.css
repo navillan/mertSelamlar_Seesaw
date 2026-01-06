@@ -1,5 +1,5 @@
 .main-frame {
-  height: 800px;
+  height: 700px;
   background-color: lightblue;
 }
 
@@ -9,16 +9,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 50px;
+  gap: 40px;
   margin-bottom: 50px;
 }
 .weigth-left, .weigth-next, .weigth-right, .plank-angle-info {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
 }
 
 .game-frame {
-  height: 400px;
+  height: 500px;
   width: 500px;
   background-color: grey;
   position: relative;
@@ -32,10 +32,10 @@
 }
 .ball-frame {
   width: 400px;
-  height: 250px;
+  height: 200px;
   background-color: paleturquoise;
   position: relative;
-  bottom: 70px;
+  bottom: 140px;
   cursor: none;
 }
 .plank {
@@ -43,7 +43,7 @@
   width: 400px;
   background-color: rgb(143, 72, 25);
   position: absolute;
-  bottom: 100px;
+  bottom: 160px;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 10px;
@@ -53,7 +53,7 @@
   width: 10px;
   background-color: black;
   position: absolute;
-  bottom: 90px;
+  bottom: 150px;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 5px;
@@ -67,6 +67,17 @@
   color: #fff;
   font-weight: 600;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.indicator {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 120px;
+  background-color: rgba(255, 0, 0, 0.7);
+  pointer-events: none;
 }
 
 .button-reset {

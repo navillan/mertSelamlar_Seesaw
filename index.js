@@ -23,24 +23,31 @@ ballFrame.addEventListener("pointermove", (event) => {
     event.clientY <= box.bottom
   ) {
     if(ball) {
-      ball.style.left = (event.clientX - box.left) + "px";
-      ball.style.top = (event.clientY - box.top) + "px";
+      const ballSize = nextBallWeigth * 7.5;
+      ball.style.left = (event.clientX - box.left - ballSize / 2) + "px";
+      ball.style.top = (event.clientY - box.top - ballSize / 2) + "px";
     }
   }
 });
 
 function createBall(event){
   const currentBallWeigth = nextBallWeigth;
+  const box = ballFrame.getBoundingClientRect();
+  const ballSize = nextBallWeigth * 7.5;
 
   ball = document.createElement('div');
   ball.classList.add('ball');
   ball.style.position = "absolute";
-  ball.style.left = (event.pageX - window.scrollX - 150) + "px";
-  ball.style.top = (event.pageY - window.scrollY - 150) + "px";
-  ball.style.width = (nextBallWeigth * 8) + "px";
-  ball.style.height = (nextBallWeigth * 8) + "px";
+  ball.style.left = (event.clientX - box.left - ballSize / 2) + "px";
+  ball.style.top = (event.clientY - box.top - ballSize / 2) + "px";
+  ball.style.width = ballSize + "px";
+  ball.style.height = ballSize + "px";
   ball.style.fontSize = (currentBallWeigth * 3) + "px";
   ball.textContent = currentBallWeigth + "kg";
+
+  const indicator = document.createElement('span');
+  indicator.classList.add('indicator');
+  ball.append(indicator);
   ballFrame.append(ball);
   
   return ball
@@ -52,31 +59,77 @@ function deleteBall(){
 };
 
 function dropBall(event){
-  const box = ballFrame.getBoundingClientRect();
+  const plankBox = plank.getBoundingClientRect();
   const currentBallWeigth = nextBallWeigth;
+  const ballSize = nextBallWeigth * 7.5;
 
-  const ball = document.createElement('div');
-  ball.classList.add('ball');
-  ball.style.position = "absolute";
-  ball.style.left = (event.pageX - box.left) + "px";
-  ball.style.top = (event.pageY - box.top) + "px";
-  ball.style.width = (nextBallWeigth * 8) + "px";
-  ball.style.height = (nextBallWeigth * 8) + "px";
-  ball.style.fontSize = (currentBallWeigth * 3) + "px";
-  ball.textContent = currentBallWeigth + "kg";
-  plank.append(ball);
-
+  const droppedBall = document.createElement('div');
+  droppedBall.classList.add('ball');
+  droppedBall.style.position = "absolute";
+  droppedBall.style.left = (event.clientX - plankBox.left - ballSize / 2) + "px";
+  droppedBall.style.top = (event.clientY - plankBox.top - ballSize / 2) + "px";
+  droppedBall.style.width = ballSize + "px";
+  droppedBall.style.height = ballSize + "px";
+  droppedBall.style.fontSize = (currentBallWeigth * 3) + "px";
+  droppedBall.textContent = currentBallWeigth + "kg";
+  plank.append(droppedBall);
   nextBallWeigth = Math.round(Math.random() * 9) + 1;
   nextWeigth.textContent = "Next: " + nextBallWeigth + "kg";
+
+  setTimeout(()=>{
+    droppedBall.style.transition = "top 0.6s ease-in";
+    droppedBall.style.top = (-ballSize) + "px";
+  }, 10);
+
+  setTimeout(()=>{
+    if(event.clientX < plankBox.left + (plankBox.width / 2)) {
+      leftWeigthValue = leftWeigthValue + currentBallWeigth
+      tiltAngle = tiltAngle - leftWeigthValue
+    } else {
+      rightWeigthValue = rightWeigthValue + currentBallWeigth
+      tiltAngle = tiltAngle + rightWeigthValue
+    };
+    leftWeigth.textContent = `Left Weigth: ${leftWeigthValue}kg`;
+    rightWeigth.textContent = `Right Weigth: ${rightWeigthValue}kg`;
+    
+  }, 300);
+
+  setTimeout(()=>{
+    tiltPlank();
+  }, 700);
+
   ballFrame.querySelectorAll('.ball').forEach(ball => ball.remove());
-  createBall(event);
+};
+
+function tiltPlank() {
+  if (tiltAngle >= 30) {
+    plank.style.transform = "rotate(30deg)";
+    plank.style.left = "10%";
+    plankAngleInfo.textContent = "30deg";
+
+  } else if (tiltAngle <= -30) {
+    plank.style.transform = "rotate(-30deg)";
+    plank.style.left = "10%";
+    plankAngleInfo.textContent = "-30deg";
+
+  } else {
+    plank.style.transform = `rotate(${tiltAngle}deg)`;
+    plank.style.left = "10%";
+    plankAngleInfo.textContent =
+      `Tilt Angle: ${tiltAngle}deg`;
+  }
 };
 
 function resetGame() {
-  tiltAngle = 0;
   leftWeigthValue = 0;
   rightWeigthValue = 0;
+  tiltAngle = 0;
+  plankAngleInfo.textContent = `Tilt Angle: ${tiltAngle}deg`
+  plank.style.transform = "rotate(0deg)";
   nextBallWeigth = Math.round(Math.random() * 9) + 1;
+  nextWeigth.textContent = "Next: " + nextBallWeigth + "kg";
+  leftWeigth.textContent = `Left Weigth: ${leftWeigthValue}kg`;
+  rightWeigth.textContent = `Right Weigth: ${rightWeigthValue}kg`;
   const allBalls = plank.querySelectorAll(".ball");
   allBalls.forEach(ball => ball.remove());
 }
