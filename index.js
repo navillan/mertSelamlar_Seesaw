@@ -104,6 +104,7 @@ function dropBall(event){
     leftWeightValue += currentBallWeight;
     localStorage.setItem('leftTorqueValue', leftTorqueValue);
     localStorage.setItem('leftWeightValue', leftWeightValue);
+    leftTorqueInfo.textContent = `${leftTorqueValue.toFixed(1)} Nm`;
   } else {
     rightTorqueValue += Math.abs(torque / 5);
     rightWeightValue += currentBallWeight;
