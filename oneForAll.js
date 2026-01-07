@@ -8,7 +8,9 @@
     nextWeightInfo : "weight-next",
     plankAngleInfo : "plank-angle-info",
     leftWeight : ".weight-left > span",
+    leftTorqueInfo : ".torque-info-left",
     rightWeight : ".weight-right > span",
+    rightTorqueInfo : ".torque-info-right",
     nextWeight : ".weight-next > span",
     plankAngleValueInfo : ".plank-angle-info > span",
     gameFrame : "game-priv-frame",
@@ -196,6 +198,7 @@
                     <div class="${leftWeightInfo}">
                         <p>Left weight: </p>
                         <span>0 kg</span>
+                        <p class="torque-info-left">0.0 Nm</p>
                     </div>
                 </div>
                 <div class="${infoBox}">
@@ -208,6 +211,7 @@
                     <div class="${rightWeightInfo}">
                         <p>Right weight: </p>
                         <span>0 kg</span>
+                        <p class="torque-info-right">0.0 Nm</p>
                     </div>
                 </div>
                 <div class="${infoBox}">
@@ -230,7 +234,9 @@
 
     self.seesawEvents = () => {
       const leftWeight = document.querySelector(".weight-left > span");
+      const leftTorqueInfo = document.querySelector(".torque-info-left");
       const rightWeight = document.querySelector(".weight-right > span");
+      const rightTorqueInfo = document.querySelector(".torque-info-right");
       const nextWeight = document.querySelector(".weight-next > span");
       const plankAngleInfo = document.querySelector(".plank-angle-info > span");
       const ballFrame = document.querySelector(".ball-frame");
@@ -267,7 +273,9 @@
 
       if (tiltAngle !== 0) {
         leftWeight.textContent = `${leftWeightValue} kg`;
+        leftTorqueInfo.textContent = `${leftTorqueValue.toFixed(1)} Nm`;
         rightWeight.textContent = `${rightWeightValue} kg`;
+        rightTorqueInfo.textContent = `${rightTorqueValue.toFixed(1)} Nm`;
         nextWeight.textContent = `${nextBallWeight} kg`;
         tiltPlank();
       }
@@ -364,7 +372,9 @@
         setTimeout(()=>{
           tiltAngle = Math.max(-30, Math.min(30, (rightTorqueValue - leftTorqueValue) / 10))
           leftWeight.textContent = `${leftWeightValue} kg`;
+          leftTorqueInfo.textContent = `${leftTorqueValue.toFixed(1)} Nm`;
           rightWeight.textContent = `${rightWeightValue} kg`;
+          rightTorqueInfo.textContent = `${rightTorqueValue.toFixed(1)} Nm`;
           
         }, 300);
 
@@ -403,7 +413,9 @@
         nextBallWeight = Math.round(Math.random() * 9) + 1;
         nextWeight.textContent = `${nextBallWeight} kg`;
         leftWeight.textContent = `${leftWeightValue} kg`;
+        leftTorqueInfo.textContent = `${leftTorqueValue.toFixed(1)} Nm`;
         rightWeight.textContent = `${rightWeightValue} kg`;
+        rightTorqueInfo.textContent = `${rightTorqueValue.toFixed(1)} Nm`;
         const allBalls = plank.querySelectorAll(".ball");
         allBalls.forEach(ball => ball.remove());
         localStorage.removeItem('leftWeightValue');

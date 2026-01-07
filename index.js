@@ -1,5 +1,7 @@
 const leftWeight = document.querySelector(".weight-left > span");
 const rightWeight = document.querySelector(".weight-right > span");
+const leftTorqueInfo = document.querySelector(".torque-info-left");
+const rightTorqueInfo = document.querySelector(".torque-info-right");
 const nextWeight = document.querySelector(".weight-next > span");
 const plankAngleInfo = document.querySelector(".plank-angle-info > span");
 const ballFrame = document.querySelector(".ball-frame");
@@ -36,6 +38,8 @@ let ball = null;
 
 if (tiltAngle !== 0) {
   leftWeight.textContent = `${leftWeightValue} kg`;
+  leftTorqueInfo.textContent = `${leftTorqueValue.toFixed(1)} Nm`;
+  rightTorqueInfo.textContent = `${rightTorqueValue.toFixed(1)} Nm`;
   rightWeight.textContent = `${rightWeightValue} kg`;
   nextWeight.textContent = `${nextBallWeight} kg`;
   tiltPlank();
@@ -129,7 +133,9 @@ function dropBall(event){
   setTimeout(()=>{
     tiltAngle = Math.max(-30, Math.min(30, (rightTorqueValue - leftTorqueValue) / 10))
     leftWeight.textContent = `${leftWeightValue} kg`;
+    leftTorqueInfo.textContent = `${leftTorqueValue.toFixed(1)} Nm`;
     rightWeight.textContent = `${rightWeightValue} kg`;
+    rightTorqueInfo.textContent = `${rightTorqueValue.toFixed(1)} Nm`;
     
   }, 300);
 
@@ -168,7 +174,9 @@ function resetGame() {
   nextBallWeight = Math.round(Math.random() * 9) + 1;
   nextWeight.textContent = `${nextBallWeight} kg`;
   leftWeight.textContent = `${leftWeightValue} kg`;
+  leftTorqueInfo.textContent = `${leftTorqueValue.toFixed(1)} Nm`;
   rightWeight.textContent = `${rightWeightValue} kg`;
+  rightTorqueInfo.textContent = `${rightTorqueValue.toFixed(1)} Nm`;
   const allBalls = plank.querySelectorAll(".ball");
   allBalls.forEach(ball => ball.remove());
   localStorage.removeItem('leftWeightValue');
