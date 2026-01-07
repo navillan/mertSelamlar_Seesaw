@@ -95,9 +95,9 @@
         }
         .${classes.ballFrame} {
           width: 400px;
-          height: 200px;
+          height: 250px;
           position: relative;
-          bottom: 100px;
+          bottom: 50px;
           cursor: none;
         }
 
@@ -250,11 +250,16 @@
         "10":"black"
       }
 
-      let leftWeightValue = localStorage.getItem('leftWeightValue') ? parseFloat(localStorage.getItem('leftWeightValue')) : 0;
-      let rightWeightValue = localStorage.getItem('rightWeightValue') ? parseFloat(localStorage.getItem('rightWeightValue')) : 0;
-      let leftTorqueValue = localStorage.getItem('leftTorqueValue') ? parseFloat(localStorage.getItem('leftTorqueValue')) : 0;
-      let rightTorqueValue = localStorage.getItem('rightTorqueValue') ? parseFloat(localStorage.getItem('rightTorqueValue')) : 0;
-      let tiltAngle = localStorage.getItem('plankTiltAngle') ? parseFloat(localStorage.getItem('plankTiltAngle')) : 0;
+      let leftWeightValue = localStorage.getItem('leftWeightValue') 
+        ? parseFloat(localStorage.getItem('leftWeightValue')) : 0;
+      let rightWeightValue = localStorage.getItem('rightWeightValue') 
+        ? parseFloat(localStorage.getItem('rightWeightValue')) : 0;
+      let leftTorqueValue = localStorage.getItem('leftTorqueValue') 
+        ? parseFloat(localStorage.getItem('leftTorqueValue')) : 0;
+      let rightTorqueValue = localStorage.getItem('rightTorqueValue') 
+        ? parseFloat(localStorage.getItem('rightTorqueValue')) : 0;
+      let tiltAngle = localStorage.getItem('plankTiltAngle') 
+        ? parseFloat(localStorage.getItem('plankTiltAngle')) : 0;
 
       let nextBallWeight = Math.round(Math.random() * 9) + 1;
 

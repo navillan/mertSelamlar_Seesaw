@@ -19,11 +19,16 @@ const colors = {
   "10":"black"
 }
 
-let leftWeightValue = localStorage.getItem('leftWeightValue') ? parseFloat(localStorage.getItem('leftWeightValue')) : 0;
-let rightWeightValue = localStorage.getItem('rightWeightValue') ? parseFloat(localStorage.getItem('rightWeightValue')) : 0;
-let leftTorqueValue = localStorage.getItem('leftTorqueValue') ? parseFloat(localStorage.getItem('leftTorqueValue')) : 0;
-let rightTorqueValue = localStorage.getItem('rightTorqueValue') ? parseFloat(localStorage.getItem('rightTorqueValue')) : 0;
-let tiltAngle = localStorage.getItem('plankTiltAngle') ? parseFloat(localStorage.getItem('plankTiltAngle')) : 0;
+let leftWeightValue = localStorage.getItem('leftWeightValue') 
+  ? parseFloat(localStorage.getItem('leftWeightValue')) : 0;
+let rightWeightValue = localStorage.getItem('rightWeightValue') 
+  ? parseFloat(localStorage.getItem('rightWeightValue')) : 0;
+let leftTorqueValue = localStorage.getItem('leftTorqueValue') 
+  ? parseFloat(localStorage.getItem('leftTorqueValue')) : 0;
+let rightTorqueValue = localStorage.getItem('rightTorqueValue') 
+  ? parseFloat(localStorage.getItem('rightTorqueValue')) : 0;
+let tiltAngle = localStorage.getItem('plankTiltAngle') 
+  ? parseFloat(localStorage.getItem('plankTiltAngle')) : 0;
 
 let nextBallWeight = Math.round(Math.random() * 9) + 1;
 
