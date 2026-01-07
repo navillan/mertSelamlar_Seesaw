@@ -131,25 +131,22 @@ function dropBall(event){
   setTimeout(()=>{
     tiltPlank();
   }, 350);
-
+  
   ballFrame.querySelectorAll('.ball').forEach(ball => ball.remove());
 };
 
 function tiltPlank() {
   
   if(tiltAngle >= 30) {
-    plank.style.transform = "rotate(30deg)";
-    plank.style.left = "10%";
+    plank.style.transform = "translateX(-50%) rotate(30deg)";
     plankAngleInfo.textContent = "30°";
 
   } else if(tiltAngle <= -30) {
-    plank.style.transform = "rotate(-30deg)";
-    plank.style.left = "10%";
+    plank.style.transform = "translateX(-50%) rotate(-30deg)";
     plankAngleInfo.textContent = "-30°";
 
   } else {
-    plank.style.transform = `rotate(${tiltAngle}deg)`;
-    plank.style.left = "10%";
+    plank.style.transform = `translateX(-50%) rotate(${tiltAngle}deg)`;
     plankAngleInfo.textContent = `${tiltAngle.toFixed(1)}°`;
   }
   localStorage.setItem('plankTiltAngle', tiltAngle.toFixed(1));
@@ -162,7 +159,7 @@ function resetGame() {
   rightTorqueValue = 0;
   tiltAngle = 0;
   plankAngleInfo.textContent = `${tiltAngle}°`
-  plank.style.transform = "unset";
+  plank.style.transform = "translateX(-50%) rotate(0deg)";
   nextBallWeight = Math.round(Math.random() * 9) + 1;
   nextWeight.textContent = `${nextBallWeight} kg`;
   leftWeight.textContent = `${leftWeightValue} kg`;
