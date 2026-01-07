@@ -1,33 +1,33 @@
 ((self)=>{
+  const classes = {
+    mainFrame : "main-frame",
+    infoBar : "info-bar",
+    infoBox : "info-box",
+    leftWeightInfo : "weight-left",
+    rightWeightInfo : "weight-right",
+    nextWeightInfo : "weight-next",
+    plankAngleInfo : "plank-angle-info",
+    leftWeight : ".weight-left > span",
+    rightWeight : ".weight-right > span",
+    nextWeight : ".weight-next > span",
+    plankAngleValueInfo : ".plank-angle-info > span",
+    gameFrame : "game-frame",
+    ball : "ball",
+    location : "location-value",
+    indicator : "indicator",
+    ballFrame : "ball-frame",
+    plank : "plank",
+    stabilizer : "plank-stabilizer",
+    resetButton : "button-reset",
+    customStyle : "custom-private-style"
+  };
 
     self.onreset = () => {
-      const { customStyle } = classes;
-      document.querySelectorAll(`.${customStyle}`).forEach(el => el.remove());
+      document.querySelectorAll(`.${classes.customStyle}`).forEach(el => el.remove());
     }
 
     self.buildCss = () => {
-        const classes = {
-          mainFrame : "main-frame",
-          infoBar : "info-bar",
-          infoBox : "info-box",
-          leftWeightInfo : "weight-left",
-          rightWeightInfo : "weight-right",
-          nextWeightInfo : "weight-next",
-          plankAngleInfo : "plank-angle-info",
-          leftWeight : ".weight-left > span",
-          rightWeight : ".weight-right > span",
-          nextWeight : ".weight-next > span",
-          plankAngleValueInfo : ".plank-angle-info > span",
-          gameFrame : "game-frame",
-          ball : "ball",
-          location : "location-value",
-          indicator : "indicator",
-          ballFrame : "ball-frame",
-          plank : "plank",
-          stabilizer : "plank-stabilizer",
-          resetButton : "button-reset",
-          customStyle : "custom-private-style"
-        };
+
       const customPrivStyle = `
       <style class="${classes.customStyle}">
         ${classes.mainFrame} {
@@ -168,5 +168,64 @@
       </style>
       `
       $("head").append(customPrivStyle)
+    }
+
+    self.buildSeesawHtml = () => {
+      const {
+        mainFrame,
+        infoBar,
+        infoBox,
+        leftWeightInfo,
+        rightWeightInfo,
+        nextWeightInfo,
+        plankAngleInfo,
+        gameFrame,
+        ballFrame,
+        plank,
+        stabilizer,
+        resetButton
+      } = classes;
+
+      const seesawHtml = `
+        <div class="${mainFrame}">
+            <div class="${infoBar}">
+                <div class="${infoBox}">
+                    <div class="${leftWeightInfo}">
+                        <p>Left weight: </p>
+                        <span>0 kg</span>
+                    </div>
+                </div>
+                <div class="${infoBox}">
+                    <div class="${nextWeightInfo}">
+                        <p>Next weight: </p>
+                        <span>0 kg</span>
+                    </div>
+                </div>
+                <div class="${infoBox}">
+                    <div class="${rightWeightInfo}">
+                        <p>Right weight: </p>
+                        <span>0 kg</span>
+                    </div>
+                </div>
+                <div class="${infoBox}">
+                    <div class="${plankAngleInfo}">
+                        <p>Tilt Angle: </p>
+                        <span>0°</span>
+                    </div>
+                </div>
+            </div>
+            <div class="${gameFrame}">
+                <div class="${ballFrame}"
+                    onmouseenter="createBall(event)"
+                    onmouseleave="deleteBall(event)"
+                    onclick="dropBall(event)"
+                ></div>
+                <div class="${plank}"></div>
+                <span class="${stabilizer}"></span>
+            </div>
+            <button class="${resetButton}" onclick="resetGame()">Clear Board</button>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', seesawHtml);
     }
 })(window);
