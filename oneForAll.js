@@ -95,9 +95,9 @@
         }
         .${classes.ballFrame} {
           width: 400px;
-          height: 250px;
+          height: 200px;
           position: relative;
-          bottom: 90px;
+          bottom: 100px;
           cursor: none;
         }
 
@@ -109,7 +109,7 @@
           bottom: 160px;
           left: 50%;
           transform: translateX(-50%);
-          transition: all 0.3s ease;
+          transition: all 0.5s ease;
           border-radius: 10px;
         }
         .${classes.stabilizer} {
@@ -341,7 +341,7 @@
         droppedBall.classList.add('ball');
         droppedBall.style.position = "absolute";
         droppedBall.style.left = (event.clientX - plankBox.left - ballSize / 2) + "px";
-        droppedBall.style.top = (event.clientY - plankBox.top - ballSize / 2) + "px";
+        droppedBall.style.top = (250 - plankBox.top - ballSize / 2) + "px";
         droppedBall.style.width = ballSize + "px";
         droppedBall.style.height = ballSize + "px";
         droppedBall.style.transition = "top 0.3s ease-in";

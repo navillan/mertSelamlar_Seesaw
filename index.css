@@ -70,9 +70,9 @@ p, span {
 }
 .ball-frame {
   width: 400px;
-  height: 150px;
+  height: 200px;
   position: relative;
-  bottom: 160px;
+  bottom: 100px;
   cursor: none;
   z-index: 2;
 }
@@ -84,7 +84,7 @@ p, span {
   bottom: 160px;
   left: 50%;
   transform: translateX(-50%);
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
   border-radius: 10px;
 }
 .stabilizer {
