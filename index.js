@@ -18,16 +18,23 @@ const colors = {
   "9":"violet",
   "10":"black"
 }
-let leftWeightValue = 0;
-let rightWeightValue = 0;
-let leftTorqueValue = 0;
-let rightTorqueValue = 0;
 
-let tiltAngle = 0;
+let leftWeightValue = localStorage.getItem('leftWeightValue') ? parseFloat(localStorage.getItem('leftWeightValue')) : 0;
+let rightWeightValue = localStorage.getItem('rightWeightValue') ? parseFloat(localStorage.getItem('rightWeightValue')) : 0;
+let leftTorqueValue = localStorage.getItem('leftTorqueValue') ? parseFloat(localStorage.getItem('leftTorqueValue')) : 0;
+let rightTorqueValue = localStorage.getItem('rightTorqueValue') ? parseFloat(localStorage.getItem('rightTorqueValue')) : 0;
+let tiltAngle = localStorage.getItem('plankTiltAngle') ? parseFloat(localStorage.getItem('plankTiltAngle')) : 0;
 
 let nextBallWeight = Math.round(Math.random() * 9) + 1;
 
 let ball = null;
+
+if (tiltAngle !== 0) {
+  leftWeight.textContent = `${leftWeightValue} kg`;
+  rightWeight.textContent = `${rightWeightValue} kg`;
+  nextWeight.textContent = `${nextBallWeight} kg`;
+  tiltPlank();
+}
 
 ballFrame.addEventListener("pointermove", (event) => {
   const box = ballFrame.getBoundingClientRect();
@@ -86,9 +93,13 @@ function dropBall(event){
   if(torque < 0){
     leftTorqueValue += Math.abs(torque / 5);
     leftWeightValue += currentBallWeight;
+    localStorage.setItem('leftTorqueValue', leftTorqueValue);
+    localStorage.setItem('leftWeightValue', leftWeightValue);
   } else {
     rightTorqueValue += Math.abs(torque / 5);
     rightWeightValue += currentBallWeight;
+    localStorage.setItem('rightTorqueValue', rightTorqueValue);
+    localStorage.setItem('rightWeightValue', rightWeightValue);
   }
 
   const droppedBall = document.createElement('div');
@@ -141,6 +152,7 @@ function tiltPlank() {
     plank.style.left = "10%";
     plankAngleInfo.textContent = `${tiltAngle.toFixed(1)}°`;
   }
+  localStorage.setItem('plankTiltAngle', tiltAngle.toFixed(1));
 };
 
 function resetGame() {
