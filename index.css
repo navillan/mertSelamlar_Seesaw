@@ -5,7 +5,6 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
-  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
 }
 .main-frame {
   height: 650px;
@@ -14,6 +13,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   margin: auto;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
 }
 
 .info-bar {
@@ -48,7 +48,6 @@ p {
 }
 span {
   color: mediumslateblue;
-  font-size: 14px;
 }
 p, span {
   font-size: 18px;
