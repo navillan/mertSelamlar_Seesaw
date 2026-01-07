@@ -70,9 +70,9 @@ p, span {
 }
 .ball-frame {
   width: 400px;
-  height: 200px;
+  height: 250px;
   position: relative;
-  bottom: 100px;
+  bottom: 50px;
   cursor: none;
   z-index: 2;
 }
