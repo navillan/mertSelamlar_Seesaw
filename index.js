@@ -166,4 +166,9 @@ function resetGame() {
   rightWeight.textContent = `${rightWeightValue} kg`;
   const allBalls = plank.querySelectorAll(".ball");
   allBalls.forEach(ball => ball.remove());
+  localStorage.removeItem('leftWeightValue');
+  localStorage.removeItem('rightWeightValue');
+  localStorage.removeItem('leftTorqueValue');
+  localStorage.removeItem('rightTorqueValue');
+  localStorage.removeItem('plankTiltAngle');
 }

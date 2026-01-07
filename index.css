@@ -70,10 +70,11 @@ p, span {
 }
 .ball-frame {
   width: 400px;
-  height: 250px;
+  height: 150px;
   position: relative;
-  bottom: 90px;
+  bottom: 160px;
   cursor: none;
+  z-index: 2;
 }
 .plank {
   height: 20px;
@@ -136,8 +137,11 @@ p, span {
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
-  position: fixed;
-  bottom: 24%;
-  transform: translateX(-50%);
+  position: relative;
+  bottom: 80px;
   left: 50%;
+  transform: translateX(-50%);
+}
+.button-reset:hover {
+  background-color: slateblue;
 }
