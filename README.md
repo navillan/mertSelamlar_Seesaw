@@ -43,7 +43,6 @@ An interactive project where you balance a seesaw by dropping weighted balls.
 
 - Lack of mathematical background reduced my speed and create a neccessity to search for the right equations.
 - Learning new features was great but using it at full capacity at the same time was not possible.
-- Storing values at the local storage was easy, but storing every ball along with its position on the plank and reloading them each time was felt unneccesary so i didn't want to put any effort in that direction because it would only affect the system visualy. Since the correct values were already being stored, even if the balls were not visible, their weight was still accounted for.
 
 ## Trade-offs
 

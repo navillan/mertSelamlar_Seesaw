@@ -33,15 +33,21 @@ let tiltAngle = localStorage.getItem('plankTiltAngle')
   ? parseFloat(localStorage.getItem('plankTiltAngle')) : 0;
 
 let nextBallWeight = Math.round(Math.random() * 9) + 1;
-
 let ball = null;
-
+const prevBalls = JSON.parse(localStorage.getItem('prevBalls')) || [];
+for(const prevBall of prevBalls){
+  const parsedBall = JSON.parse(prevBall);
+  const elem = document.createElement('div');
+  elem.innerHTML = parsedBall;
+  plank.append(elem);
+};
 if (tiltAngle !== 0) {
   leftWeight.textContent = `${leftWeightValue} kg`;
   leftTorqueInfo.textContent = `${leftTorqueValue.toFixed(1)} Nm`;
   rightTorqueInfo.textContent = `${rightTorqueValue.toFixed(1)} Nm`;
   rightWeight.textContent = `${rightWeightValue} kg`;
   nextWeight.textContent = `${nextBallWeight} kg`;
+  
   tiltPlank();
 }
 
@@ -129,6 +135,8 @@ function dropBall(event){
 
   setTimeout(()=>{
     droppedBall.style.top = (-ballSize) + "px";
+    prevBalls.push(JSON.stringify(droppedBall.outerHTML));
+    localStorage.setItem('prevBalls', JSON.stringify(prevBalls));
   }, 50);
 
   setTimeout(()=>{
@@ -185,4 +193,6 @@ function resetGame() {
   localStorage.removeItem('leftTorqueValue');
   localStorage.removeItem('rightTorqueValue');
   localStorage.removeItem('plankTiltAngle');
+  localStorage.removeItem('prevBalls');
+  window.location.reload();
 }
